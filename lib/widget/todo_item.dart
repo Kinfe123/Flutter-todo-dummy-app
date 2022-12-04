@@ -18,7 +18,10 @@ class TodoItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+
+      margin: EdgeInsets.fromLTRB(4, 0, 4, 10),
+      
+
       child: ListTile(
         onTap: () {
           onTileClick(todo);
@@ -44,7 +47,7 @@ class TodoItems extends StatelessWidget {
 
         trailing: Container(
             padding: EdgeInsets.all(0),
-            margin: EdgeInsets.symmetric(vertical: 10),
+            margin: EdgeInsets.symmetric(vertical: 10 ),
             height: 38,
             width: 38,
             decoration: BoxDecoration(

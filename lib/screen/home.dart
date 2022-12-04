@@ -3,6 +3,7 @@ import 'package:myfirstapp03/constants/colors.dart';
 import 'package:myfirstapp03/widget/todo_item.dart';
 import 'package:myfirstapp03/model/todo.dart';
 import 'package:flutter/services.dart';
+
 class Home extends StatefulWidget {
   HomeState createState() => HomeState();
 }
@@ -31,10 +32,8 @@ class HomeState extends State<Home> {
     foundTodo = todoLists;
     super.initState();
   }
-  
 
   Widget build(BuildContext context) {
-    
     return Scaffold(
         backgroundColor: tdBGColor,
         appBar: buildAppBar(),
@@ -57,7 +56,6 @@ class HomeState extends State<Home> {
                             style: TextStyle(
                               letterSpacing: 0.2,
                               fontFamily: 'Test',
-                              
                               fontSize: 35,
                               fontWeight: FontWeight.normal,
                             ),
@@ -80,16 +78,24 @@ class HomeState extends State<Home> {
                 children: [
                   Expanded(
                     child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 13),
+                    
+                        padding: EdgeInsets.symmetric(horizontal: 13 , vertical: 5),
                         margin: EdgeInsets.only(
                           bottom: 20,
                           right: 20,
                           left: 20,
                         ),
+                        
                         decoration: BoxDecoration(
+                          boxShadow: [
+                            const BoxShadow(
+                              blurRadius: 8,
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(5.0),
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.cyan),
+                          // borderRadius: BorderRadius.circular(10),
+                          // border: Border.all(color: Colors.cyan),
                           shape: BoxShape.rectangle,
                         ),
                         child: TextField(
@@ -97,10 +103,11 @@ class HomeState extends State<Home> {
                           controller: _textController,
                           decoration: InputDecoration(
                               hintText: 'Add a todo',
-                              hintStyle: TextStyle(color: Colors.grey , fontFamily: 'Test'),
+                              hintStyle: TextStyle(
+                                  color: Colors.grey, fontFamily: 'Test'),
                               border: InputBorder.none,
                               suffixIcon: IconButton(
-                                icon: Icon(Icons.clear),
+                                icon: Icon(Icons.clear , color: Colors.black,),
                                 onPressed: () {
                                   _textController.clear();
                                 },
@@ -108,6 +115,14 @@ class HomeState extends State<Home> {
                         )),
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        const BoxShadow(
+                          blurRadius: 8,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
                     margin: EdgeInsets.only(
                       bottom: 20,
                       right: 20,
@@ -121,7 +136,6 @@ class HomeState extends State<Home> {
                                 id: DateTime.now().toString(), todoText: msg));
                             _textController.clear();
                           } else {
-                           
                             showAlertDialogue(context);
                           }
                         });
@@ -129,7 +143,7 @@ class HomeState extends State<Home> {
                       child: Text('+', style: TextStyle(fontSize: 36)),
                       style: ElevatedButton.styleFrom(
                         primary: tdBlue,
-                        minimumSize: Size(26, 26),
+                        minimumSize: Size(69, 50),
                         elevation: 5.0,
                       ),
                     ),
@@ -149,6 +163,8 @@ class HomeState extends State<Home> {
 
   void handleDelete(ToDo todo) {
     setState(() {
+      List<ToDo> deleteFor = todoLists;
+      foundTodo.remove(todo);
       todoLists.remove(todo);
     });
   }
@@ -179,11 +195,18 @@ class HomeState extends State<Home> {
       onPressed: () {
         Navigator.of(context).pop();
       },
-      child: Text('Okay' , style: TextStyle(fontFamily: 'Test'),),
+      child: Text(
+        'Okay',
+        style: TextStyle(fontFamily: 'Test'),
+      ),
     );
     AlertDialog alertDialog = AlertDialog(
-      title: Text('Empty feild', style: TextStyle(fontFamily: 'Test'),),
-      content: Text('You should have to put something to add on' ,style: TextStyle(fontFamily: 'Test')),
+      title: Text(
+        'Empty feild',
+        style: TextStyle(fontFamily: 'Test'),
+      ),
+      content: Text('You should have to put something to add on',
+          style: TextStyle(fontFamily: 'Test')),
       actions: [
         oKbutton,
       ],
@@ -195,6 +218,7 @@ class HomeState extends State<Home> {
   Widget SearchBox() {
     return (Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
@@ -204,11 +228,10 @@ class HomeState extends State<Home> {
         onChanged: (value) => runFilter(value),
         style: TextStyle(fontFamily: 'Test'),
         decoration: InputDecoration(
-            
             hintText: 'Search',
-            hintStyle: TextStyle(color: Colors.grey , fontFamily: 'Test'),
+            hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Test'),
             border: InputBorder.none,
-            contentPadding: EdgeInsets.fromLTRB(0, 13, 0, 0),
+            contentPadding: EdgeInsets.fromLTRB(0, 16, 0, 0),
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -231,7 +254,8 @@ class HomeState extends State<Home> {
 
   AppBar buildAppBar() {
     return AppBar(
-       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+        systemOverlayStyle:
+            SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         backgroundColor: tdBGColor,
         elevation: 1.0,
         title: Row(
